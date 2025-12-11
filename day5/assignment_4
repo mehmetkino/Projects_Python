@@ -1,0 +1,67 @@
+#Mehmet Kino
+#Hand in Assignment 4
+#This program will calculate the future value of a monthly investment
+
+import enhancement
+
+def display_company_information():
+    print("*******  ACME INVESTMENTS  *******")
+    print("505 Looney Tunes Ave Suite #201")
+    print("Buggs, CA 80005")
+    print("Elmer Fudd - EF@LooneyTunes.com")
+    print()
+    
+def get_float(min_value, max_value, entry):
+    value = float(input(f"Enter {entry}\n"))
+    while value < min_value or value >max_value:
+        print(f"Enter a value within range of {min_value} to {max_value}\n")
+        value = float(input(f"Enter {entry}\n"))
+    return value
+
+def get_integer(min_value, max_value, entry):
+    value = int(input(f"Enter {entry}\n"))
+    while value < min_value or value >max_value:
+        print(f"Enter a value within range of {min_value} to {max_value}\n")
+        value = int(input(f"Enter {entry}\n"))
+    return value
+
+def is_valid_value(first, second, entry):
+    value = input(f"{entry} ").lower()
+    while value != first and value != second:
+        print("Enter a value between range of {first} or {second}\n")
+        value = input(f"{entry}\n").lower()
+    return value
+def calc_future_value(investment, rate, years):
+    monthly_rate, months = enhancement.convert_to_monthly_values(rate,years)
+    future_value = 0
+    for i in range(months):
+        future_value = (future_value + investment)* (1 + monthly_rate)
+    return future_value
+
+
+def main():
+    display_company_information()
+    
+    keep_going = "y"
+    while keep_going == "y":
+        monthly_investment = get_float(100, 10000, "Monthly Investment")
+        yearly_interest = get_float(5, 20, "Interest Rate")
+        years = get_integer(2, 30, "Years")
+        
+        future_value = calc_future_value(monthly_investment, yearly_interest, years)
+        
+        print("***** Investment Results ******")
+        print("Monthly Investment:",enhancement.to_currency(monthly_investment))
+        print(f"Interest Rate (APR): {yearly_interest:.2f}%")
+        print(f"Duration in Years:{int(years)}")
+        print("Future Value of investment:", enhancement.to_currency(future_value))
+        
+        keep_going = is_valid_value("y", "x", "Another Investment? Enter 'y' to continue 'x' to quit\n")
+
+main()
+    
+                        
+    
+
+
+    
